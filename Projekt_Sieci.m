@@ -17,8 +17,8 @@ t=[3,2,1]
 H = graph(s,t)
 %}
 
-%Z = zeros(20)
-%{
+Z = zeros(20)
+
 G = graph(Z);
 P = plot(G);
 x = get(P,'XData');
@@ -35,7 +35,7 @@ yticks(-5:5)
 xline(x(1), 'r')
 yline(y(1), 'r')
 
-%}
+
 %{
 set_x = [1,2,3]
 set_y = [1,2,3]
