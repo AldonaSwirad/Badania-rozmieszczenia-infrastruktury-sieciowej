@@ -7,7 +7,8 @@ classdef Net2 < handle
     properties
         lat %szerokość geograficzna (S-N)
         lon %długość geograficzna (W-E)
-        edges
+        edges %macierz: kolumna 1 - pierwszy wierzchołek należący do krawędzi
+              %kolumna 2 - drugi wierzchołek należący do krawędzi
     end
 
     methods
@@ -18,7 +19,6 @@ classdef Net2 < handle
             if length(longitude) == length(latitude)
                 obj.lat = latitude;
                 obj.lon = longitude;
-                %obj.net_update
             else
                 print("Rozmiary list koordynatow sa rozne!")
             end
@@ -56,13 +56,5 @@ classdef Net2 < handle
             obj.lat = [obj.lat, latitude];
             obj.lon = [obj.lon, longitude];
         end
-
-        %{
-        function outputArg = method1(obj,inputArg)
-            %METHOD1 Summary of this method goes here
-            %   Detailed explanation goes here
-            outputArg = obj.Property1 + inputArg;
-        end
-        %}
     end
 end
