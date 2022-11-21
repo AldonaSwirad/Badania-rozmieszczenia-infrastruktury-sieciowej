@@ -56,5 +56,6 @@ classdef Net2 < handle
             obj.lat = [obj.lat, latitude];
             obj.lon = [obj.lon, longitude];
         end
+        
     end
 end
