@@ -5,20 +5,30 @@ classdef Net < handle
     % a handle class (patrz: dokumentacja).
 
     properties
-        lat %szerokość geograficzna (S-N)
-        lon %długość geograficzna (W-E)
+        lat %liasta z szerokościami geograficznymi (S-N)
+        lon %lista z długościami geograficznymi (W-E)
+        IDlabels %lista etykiet
         edges %macierz: kolumna 1 - pierwszy wierzchołek należący do krawędzi
               %kolumna 2 - drugi wierzchołek należący do krawędzi
     end
 
     methods
-        function obj = Net(latitude, longitude)
+        function obj = Net(latitude, longitude, ID)
             %NET konstruktor
             %   Przyjmuje dwie listy: koordynatów x i koordynatów y.
             %   Spodziewa się list takiej samej długości.
             if length(longitude) == length(latitude)
-                obj.lat = latitude;
-                obj.lon = longitude;
+                if ~exist("ID", "var")
+                    ID = string(1:length(latitude));
+                else 
+                    if length(latitude) == length(ID)
+                        obj.lat = latitude;
+                        obj.lon = longitude;
+                        obj.IDlabels = ID;
+                    else
+                        print("Rozmiary list koordynatow i etykiet sa rozne!")
+                    end
+                end
             else
                 print("Rozmiary list koordynatow sa rozne!")
             end
@@ -51,10 +61,11 @@ classdef Net < handle
             end
         end
 
-        function add_vertex(obj, latitude, longitude)
+        function add_vertex(obj, latitude, longitude, ID)
             %Dodaje węzeł o podanych koordynatach.
             obj.lat = [obj.lat, latitude];
             obj.lon = [obj.lon, longitude];
+            obj.IDlabels = [obj.IDlabels, ID];
         end
     end
 end
