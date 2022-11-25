@@ -39,10 +39,12 @@ classdef Node < handle
             %"rad" - konwersja kąta z formatu DMS na radiany.
             %"deg" - konwersja kąta z formatu DMS na kąt dziesiętny.
             if (mode == "rad")
-                outputCoords = deg2rad(dms2degrees([obj.lat; obj.lon]));
+                coords_converted = deg2rad(dms2degrees([obj.lat; obj.lon]));
+                outputCoords = reshape(coords_converted, [1, 2]);
             else
                 if mode=="deg"
-                outputCoords = dms2degrees([obj.lat; obj.lon]);
+                coords_converted = dms2degrees([obj.lat; obj.lon]);
+                outputCoords = reshape(coords_converted, [1, 2]);
                 end
             end
         end
