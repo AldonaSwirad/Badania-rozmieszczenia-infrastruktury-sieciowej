@@ -242,9 +242,11 @@ trafficMap = containers.Map(keySet,valueSet);
 
 % assigning mock values for unit test
 
-trafficMap('SW-34') = 1;
+trafficMap('SW-34') = 1.1;
 
 trafficMap('RADIO-14') = 0.5;
+
+trafficMap('RADIO-1') = 1;
 
 disp('umowna brama domyslna: RT-2')
 
@@ -264,3 +266,6 @@ findParent(UD_G1, 'RT-2', 'RT-7')
 findChildren(UD_G1, 'RT-2', 'RT-7')
 
 [u, d] = simulateNetworkStress(UD_G1, 'RT-2', trafficMap, trafficMap);
+
+disp("ilosc przeciazonych wezlow:")
+disp(sum(cell2mat(values(u))))
