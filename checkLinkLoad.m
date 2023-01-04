@@ -1,5 +1,8 @@
 function [loadAmount, updatedOverloadMap] = checkLinkLoad(G, gateway_node, current_node, trafficMap, overloadMap, mode)
+%   Calculates traffic aggregated by node and checks if it'll overload the
+%   link.
 %   BEWARE: it's untested.
+
 %   find children and prepare for traffic calculation
     childNodes = findChildren(G, gateway_node, current_node);
     totalTrafficAmount = trafficMap(current_node);
