@@ -259,3 +259,5 @@ simulateNetworkTraffic(UD_G1, 'RT-2', 'RT-2', trafficMap)
 disp('ruch w galezi RT-5:')
 
 simulateNetworkTraffic(UD_G1, 'RT-2', 'RT-5', trafficMap)
+
+findParent(UD_G1, 'RT-2', 'RT-7', successors(UD_G1, 'RT-7'))
