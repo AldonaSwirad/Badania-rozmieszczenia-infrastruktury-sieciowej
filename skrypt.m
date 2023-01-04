@@ -262,3 +262,5 @@ simulateNetworkTraffic(UD_G1, 'RT-2', 'RT-5', trafficMap)
 
 findParent(UD_G1, 'RT-2', 'RT-7')
 findChildren(UD_G1, 'RT-2', 'RT-7')
+
+[u, d] = simulateNetworkStress(UD_G1, 'RT-2', trafficMap, trafficMap);
