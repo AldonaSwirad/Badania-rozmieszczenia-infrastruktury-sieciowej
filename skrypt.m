@@ -38,14 +38,32 @@
 % graph - nieskierowany,  digraph - skierowany
 UD_G1= digraph(s,t,weights);
 
+% building traffic map - traffic values for lower nodes
+
 keySet = unique([s,t]);
 valueSet = zeros(1, length(keySet));
 
 trafficMap = containers.Map(keySet,valueSet);
 
+% assigning mock values for unit test
+
 trafficMap('SW-34') = 1;
 
+trafficMap('RADIO-14') = 0.5;
+
+disp('umowna brama domyslna: RT-2')
+
+% should return 1.5
+
+disp('ruch w calej sieci:')
+
 simulateNetworkTraffic(UD_G1, 'RT-2', 'RT-2', trafficMap)
+
+% should return 1
+
+disp('ruch w galezi RT-5:')
+
+simulateNetworkTraffic(UD_G1, 'RT-2', 'RT-5', trafficMap)
 
 plot(UD_G1,'Layout','layered','Direction','down','Sources',[2],'EdgeLabel',UD_G1.Edges.Weight);
 
