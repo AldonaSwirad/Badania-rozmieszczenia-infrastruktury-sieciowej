@@ -248,6 +248,9 @@ trafficMap('RADIO-14') = 0.5;
 
 trafficMap('RADIO-1') = 1;
 
+trafficMap('RADIO-7') = 0.07;
+trafficMap('RADIO-4') = 0.07;
+
 disp('umowna brama domyslna: RT-2')
 
 % should return 1.5
