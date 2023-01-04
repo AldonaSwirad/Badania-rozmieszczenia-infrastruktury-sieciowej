@@ -1,4 +1,5 @@
-function validChildren = findChildren(G, root_node, current_node , successors_list)
+function validChildren = findChildren(G, root_node, current_node)
+    successors_list = successors(G, current_node);
     current_path_length = length(shortestpath(G, current_node, root_node));
     childNodeList = [];
     for i = 1: length(successors_list)

@@ -5,7 +5,7 @@ function trafficAmount = simulateNetworkTraffic(G, root_node, current_node , tra
 %       root_node - wezel, na ktorym chcemy policzyc ruch
 %       trafficValueMap - mapa hashowa zawierajaca pary wezel: ilosc ruchu
 %       https://www.mathworks.com/help/matlab/ref/containers.map.html
-    childNodes = findChildren(G, root_node, current_node, successors(G, current_node));
+    childNodes = findChildren(G, root_node, current_node);
     tAm = trafficValueMap(current_node); % zmienna podreczna - zmienna trafficAmount w petli nie dzialala poprawnie
     for i = 1 : length(childNodes)
         tAm = tAm + simulateNetworkTraffic(G, root_node, childNodes{i}, trafficValueMap);
