@@ -270,5 +270,12 @@ findChildren(UD_G1, 'RT-2', 'RT-7')
 
 [u, d] = simulateNetworkStress(UD_G1, 'RT-2', trafficMap, trafficMap);
 
+%overloaded nodes
 disp("ilosc przeciazonych wezlow:")
 disp(sum(cell2mat(values(u))))
+
+disp("przeciazone wezly:")
+errorNodes = findOverloadedNodes(u)
+
+p = plot(UD_G1,'Layout','layered','Direction','down','Sources',[2],'EdgeLabel',UD_G1.Edges.Weight)
+highlight(p, errorNodes,'MarkerSize', 6, 'NodeColor', 'r')
