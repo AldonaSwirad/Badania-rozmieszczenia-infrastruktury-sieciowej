@@ -5,6 +5,7 @@
 
 %Tworzenie grafu
 UD_G1= digraph(s,t,weights);
+keySet = unique([s,t]);
 
 plot(UD_G1,'Layout','layered','Direction','down','Sources',[2],'EdgeLabel',UD_G1.Edges.Weight);
 
