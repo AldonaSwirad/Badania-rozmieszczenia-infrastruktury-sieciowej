@@ -68,16 +68,17 @@ classdef Net < handle
                 end
             end
             found_edges = zeros(1, length(obj.edges(:, 1)));
-            no_of_edges = 0;
+            no_of_edges = 1;
             for i = 1:length(obj.edges(:, 1))
                 if (obj.edges(i, 1) == del_node || obj.edges(i, 2) == del_node)
-                    found_edges(i) = i;
+                    found_edges(no_of_edges) = i;
                     no_of_edges = no_of_edges+1;
                 end
             end
+            no_of_edges = no_of_edges-1;
             found_edges = found_edges(1:no_of_edges);
             for i = 1:length(found_edges)
-                obj.edges(i, :) = [];
+                obj.edges(found_edges(i), :) = [];
                 found_edges = found_edges - 1;
             end
         end
