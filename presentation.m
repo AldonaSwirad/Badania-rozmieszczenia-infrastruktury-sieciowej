@@ -16,19 +16,26 @@ valueSet = [0 0 0 0 0 6 0 2 740 0 0 445 545 420 43 20 12 41 21 32 20 5 9 15 12 2
 clientAmount = containers.Map(keySet, valueSet);
 
 %Informacje o ruchu na kazdym wezle
-
+avgUpload =   0.0000878906*10; %wartosc przeliczona z Mbps na Gbps
 avgDownload = 0.0015429688*3; %wartosc przeliczona z Mbps na Gbps
-avgUpload =   0.0000878906*50; %wartosc przeliczona z Mbps na Gbps
+
 
 
 upload = Map(UD_G1, clientAmount, avgUpload); 
+clear Map
 download = Map(UD_G1, clientAmount, avgDownload); 
+clear Map
 [u, d] = simulateNetworkStress(UD_G1, 'RT-2', download, upload);
+clear simulateNetworkStress
 
 % przeciazenie - download
 errorNodesDownload = findOverloadedNodes(d);
 errorNodesUpload = findOverloadedNodes(u);
 
+
+
+
+
 p = plot(UD_G1,'Layout','layered','Direction','down','Sources',2,'EdgeLabel',UD_G1.Edges.Weight);
 highlight(p, errorNodesDownload,'MarkerSize', 6, 'NodeColor', 'red')
-
+highlight(p, errorNodesUpload,'MarkerSize', 2, 'NodeColor', 'yellow')
