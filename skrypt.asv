@@ -303,17 +303,13 @@ highlight(p, errorNodesUpload,'MarkerSize', 6, 'NodeColor', 'r')
 %Y = hist(X,unique(X))
 %Z = struct('name',D,'freq',num2cell(Y(:)))
 
-
-%barplot względem każdego urządzenia
-
 %barplot weights
 %X = categorical(keySet);
 %X = reordercats(X,keySet);
 %Y = values;
 %
 
-% barplot - upload
-X = categorical(keySet);
+% barplot - uploadX = categorical(keySet);
 X = reordercats(X,keySet);
 Y = cell2mat(download.values);
 bar(X,Y, 'g')
@@ -326,9 +322,7 @@ X = reordercats(X,keySet);
 Y = cell2mat(upload.values);
 bar(X,Y)
 hold off
-legend('download','upload')
 
-%barplot dla całej sieci
 
 ValuesUpload = cell2mat(upload.values);
 minValueUpload = min(ValuesUpload(ValuesUpload>0))
@@ -344,7 +338,6 @@ DownloadList = [minValueDownload maxValueDownload meanValueDownload]
     
 y = [minValueUpload maxValueUpload meanValueUpload;
 minValueDownload maxValueDownload meanValueDownload]
-% bar(y,'stacked')
-%legend('minimum','maksimum','średnia')
+bar(y,'stacked')
 
 
