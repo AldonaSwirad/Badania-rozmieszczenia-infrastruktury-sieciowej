@@ -312,7 +312,8 @@ highlight(p, errorNodesUpload,'MarkerSize', 6, 'NodeColor', 'r')
 %Y = values;
 %
 
-% barplot - uploadX = categorical(keySet);
+% barplot - upload
+X = categorical(keySet);
 X = reordercats(X,keySet);
 Y = cell2mat(download.values);
 bar(X,Y, 'g')
