@@ -23,8 +23,10 @@ function [loadAmount, updatedOverloadMap] = checkLinkLoad(G, gateway_node, curre
         switch mode
             case "upload"
                 bandwidth = maxflow(G, current_node, parentNode);
+                clear maxflow
             case "download"
                 bandwidth = maxflow(G, parentNode, current_node);
+                clear maxflow
             otherwise
                 error("Bad mode identifier. Use upload or download.")
         end
