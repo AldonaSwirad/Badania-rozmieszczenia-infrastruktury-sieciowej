@@ -1,6 +1,3 @@
-
-
-
 %Tworzenie grafu
 %Nieskierowany do czesci teoretycznej
     %s={'RT0','RT0','RT2','RT3','RT3','RT4','SW1','RADIO1','RT5','RT6','SW2','SW3','SW5','SW3','SW6','SW6','SW2','SW4'};
@@ -39,7 +36,7 @@
 UD_G1= digraph(s,t,weights);
 
 
-plot(UD_G1,'Layout','layered','Direction','down','Sources',[2],'EdgeLabel',UD_G1.Edges.Weight);
+plot(UD_G1,'Layout','layered','Direction','down','Sources',2,'EdgeLabel',UD_G1.Edges.Weight);
 
 %Funkcje
 %{
@@ -232,119 +229,3 @@ UD_WGC_G = mean(WG_G)
 
 %wspolczynnik_gronowania_nieskierowany(UD_G1);
 %wspolczynnik_gronowania_skierowany(UD_G1);
-
-% building traffic map - traffic values for lower nodes
-
-keySet = unique([s,t]);
-valueSet = zeros(1, length(keySet));
-
-trafficMap = containers.Map(keySet,valueSet);
-
-% assigning mock values for unit test
-
-trafficMap('SW-34') = 1.1;
-
-trafficMap('RADIO-14') = 0.5;
-
-trafficMap('RADIO-1') = 1;
-
-trafficMap('RADIO-7') = 0.07;
-trafficMap('RADIO-4') = 0.07;
-
-disp('umowna brama domyslna: RT-2')
-
-% should return 1.5
-
-disp('ruch w calej sieci:')
-
-simulateNetworkTraffic(UD_G1, 'RT-2', 'RT-2', trafficMap)
-
-% should return 1
-
-disp('ruch w galezi RT-5:')
-
-simulateNetworkTraffic(UD_G1, 'RT-2', 'RT-5', trafficMap)
-
-findParent(UD_G1, 'RT-2', 'RT-7')
-findChildren(UD_G1, 'RT-2', 'RT-7')
-
-[u, d] = simulateNetworkStress(UD_G1, 'RT-2', trafficMap, trafficMap);
-
-
-%Ania
-%Mapa liczby klientow (z pliku node_client_count.m, po poprawie):
-keySetNew = {'RT-1' 'RT-0' 'RT-2' 'RT-3' 'RT-4' 'SW-1' 'RADIO-1' 'RADIO-2' 'OLT-1' 'RT-5' 'RT-6' 'OLT-2' 'OLT-3' 'OLT-4' 'SW-2' 'SW-4' 'SW-7' 'SW-3' 'SW-5' 'SW-8' 'SW-6' 'SW-9' 'SW-10' 'SW-11' 'SW-12' 'SW-13' 'SW-14' 'SW-15' 'SW-16' 'SW-17' 'SW-20' 'SW-23' 'SW-18' 'SW-19' 'SW-21' 'SW-22' 'SW-24' 'SW-25' 'SW-26' 'SW-27' 'SW-28' 'SW-29' 'SW-31' 'SW-34' 'SW-30' 'SW-32' 'SW-33' 'SW-35' 'SW-36' 'SW-37' 'SW-38' 'SW-39' 'RADIO-3' 'RADIO-4' 'RADIO-7' 'RADIO-5' 'RADIO-6' 'RADIO-8' 'SW-40' 'SW-41' 'SW-42' 'SW-43' 'RADIO-9' 'RADIO-10' 'SW-44' 'SW-45' 'SW-46' 'SW-47' 'SW-48' 'SW-49' 'SW-50' 'RT-7' 'RT-8' 'OLT-5' 'SW-68' 'SW-51' 'SW-52' 'SW-53' 'SW-63' 'SW-64' 'SW-67' 'RADIO-11' 'RADIO-12' 'RADIO-13' 'RADIO-14' 'SW-65' 'SW-66' 'SW-54' 'SW-59' 'SW-55' 'SW-56' 'SW-57' 'SW-60' 'SW-62' 'SW-61' 'SW-58' 'SW-69' 'SW-72' 'SW-73' 'SW-74' 'SW-75' 'SW-76' 'SW-77' 'SW-70' 'SW-78' 'OLT-6' 'SW-71' 'SW-79' 'SW-80' 'SW-81' 'RADIO-15' 'RADIO-16' 'SW-82' 'SW-83' 'SW-84' 'SW-85' 'SW-86' 'SW-87' 'SW-88' 'SW-89' 'SW-90' 'OLT-7' 'OLT-8' 'SW-91' 'SW-92' 'SW-93' 'RT-9' 'RT-10' 'SW-94' 'SW-95' 'OLT-9' 'OLT-10' 'OLT-11' 'SW-96' 'SW-97' 'SW-98' };
-valueSet = [0 0 0 0 0 6 0 2 740 0 0 445 545 420 43 20 12 41 21 32 20 5 9 15 12 28 11 7 21 15 21 12 4 36 16 18 17 42 21 5 37 29 35 17 33 7 27 21 5 21 18 7 2 0 3 7 0 2 25 13 32 23 2 1 11 6 29 7 12 5 8 0 0 235 24 12 4 12 6 9 10 0 4 1 5 38 5 4 1 15 11 12 1 4 5 15 8 26 8 4 15 5 11 19 14 110 35 41 28 16 0 3 6 14 17 3 7 9 14 31 6 42 32 10 25 17 8 11 26 28 432 274 195 46 26 44 ];
-clientAmount = containers.Map(keySetNew, valueSet);
-
-%limity 
-limits = []
-
-%Mapy downloadu i uploadu:
-upload = Map(UD_G1, clientAmount, 0.09)
-download = Map(UD_G1, clientAmount, 1.58)
-
-%overloaded nodes
-disp("ilosc przeciazonych wezlow:")
-disp(sum(cell2mat(values(upload))))
-
-disp("przeciazone wezly podczas uploadu:")
-errorNodesUpload = findOverloadedNodes(u)
-
-disp("przeciazone wezly podczas downloadu:")
-errorNodesDownload = findOverloadedNodes(d)
-
-
-p = plot(UD_G1,'Layout','layered','Direction','down','Sources',[2],'EdgeLabel',UD_G1.Edges.Weight)
-highlight(p, errorNodesUpload,'MarkerSize', 6, 'NodeColor', 'r')
-%highlight(p, errorNodesDownload,'MarkerSize', 6, 'NodeColor', 'y')
-
-%[D,~,X] = unique(keySet(:))
-%Y = hist(X,unique(X))
-%Z = struct('name',D,'freq',num2cell(Y(:)))
-
-
-%barplot względem każdego urządzenia
-
-%barplot weights
-%X = categorical(keySet);
-%X = reordercats(X,keySet);
-%Y = values;
-%
-
-% barplot - upload
-X = categorical(keySet);
-X = reordercats(X,keySet);
-Y = cell2mat(download.values);
-bar(X,Y, 'g')
-
-
-hold on
-% barplot - download
-X = categorical(keySet);
-X = reordercats(X,keySet);
-Y = cell2mat(upload.values);
-bar(X,Y)
-hold off
-legend('download','upload')
-
-%barplot dla całej sieci
-
-ValuesUpload = cell2mat(upload.values);
-minValueUpload = min(ValuesUpload(ValuesUpload>0))
-maxValueUpload = max(ValuesUpload)
-meanValueUpload = mean(ValuesUpload)
-UploadList = [minValueUpload maxValueUpload meanValueUpload]
-
-ValuesDownload = cell2mat(download.values);
-minValueDownload = min(ValuesDownload(ValuesDownload>0))
-maxValueDownload = max(ValuesDownload)
-meanValueDownload = mean(ValuesDownload)
-DownloadList = [minValueDownload maxValueDownload meanValueDownload]
-    
-y = [minValueUpload maxValueUpload meanValueUpload;
-minValueDownload maxValueDownload meanValueDownload]
-% bar(y,'stacked')
-%legend('minimum','maksimum','średnia')
-
-
